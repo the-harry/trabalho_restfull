@@ -1,0 +1,6 @@
+{
+   "alunos":[
+     { "nome": "zezinho", "rm": 666 },
+      { "nome": "luluzinha", "rm": 999 }
+   ]
+}
