@@ -33,4 +33,9 @@
 
 # env file
 .env
+
+# simplecov report
 coverage
+
+# lista de alunos
+db/alunos.json
