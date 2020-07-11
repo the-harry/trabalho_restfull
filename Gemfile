@@ -8,8 +8,13 @@ gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
+group :test do
+  gem 'shoulda-matchers', '~> 4.0'
+end
+
 group :development, :test do
   gem 'pry', '~> 0.12.2'
+  gem 'rspec-rails', '~> 4.0.1'
 end
 
 group :development do
