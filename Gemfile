@@ -12,6 +12,7 @@ gem 'sqlite3', '~> 1.4'
 
 group :test do
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

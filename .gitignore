@@ -33,3 +33,4 @@
 
 # env file
 .env
+coverage
