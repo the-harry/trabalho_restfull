@@ -1,24 +1,21 @@
-# README
+# Trabalho RESTful
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Essa API foi criada para explicar conceitos do protocolo HTTP e APIs REST.
 
-Things you may want to cover:
 
-* Ruby version
+### RECURSOS
 
-* System dependencies
 
-* Configuration
+### ENDPOINTS
 
-* Database creation
+### CODIGOS HTTP
 
-* Database initialization
+### VERBOS
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Outros recursos interessantes
 
-* Deployment instructions
+Temos algumas RFCs para especificacoes do protocolo HTTP, porem a 7231 define a semantica do protocolo. Vale a pena dar uma olhada caso queira mais detalhes.
+!!! image
 
-* ...
+[RFC 7231](https://tools.ietf.org/html/rfc7231)
