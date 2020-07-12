@@ -19,7 +19,15 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
     end
   end
 
-  def show; end
+  def show
+    trabalho = Trabalho.find_by(id: params['id'])
+
+    if trabalho.present?
+      render status: :ok, json: trabalho
+    else
+      render status: :not_found
+    end
+  end
 
   def update; end
 
