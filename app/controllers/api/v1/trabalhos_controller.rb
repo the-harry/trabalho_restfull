@@ -1,5 +1,13 @@
 class Api::V1::TrabalhosController < Api::V1::ApiController
-  def index; end
+  def index
+    trabalhos = Trabalho.all
+
+    if trabalhos.exists?
+      render status: :ok, json: trabalhos
+    else
+      render status: :no_content
+    end
+  end
 
   def create
     trabalho = Trabalho.new(sanitized_trabalho(params))
