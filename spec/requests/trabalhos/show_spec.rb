@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Aluno pode ver um trabalho enviado', type: :request do
   context 'success 200' do
@@ -6,7 +8,7 @@ RSpec.describe 'Aluno pode ver um trabalho enviado', type: :request do
       aluno = Aluno.create(nome: 'foo', rm: 123, sala: Sala.create(nome: 'bar'))
       trabalho = Trabalho.create(title: 'NAC', url: 'localhost', aluno: aluno)
 
-      get "/api/v1/trabalhos/#{trabalho.id}"
+      get "/api/v1/trabalho/#{trabalho.id}"
 
       expect(response).to have_http_status(:ok)
       parsed_response = JSON.parse(response.body)
@@ -18,8 +20,8 @@ RSpec.describe 'Aluno pode ver um trabalho enviado', type: :request do
   end
 
   context 'record found 404' do
-    it "raises error if no title is suplied" do
-      get "/api/v1/trabalhos/42"
+    it 'raises error if no title is suplied' do
+      get '/api/v1/trabalho/42'
 
       expect(response).to have_http_status(:not_found)
     end
