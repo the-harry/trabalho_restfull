@@ -14,7 +14,7 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
   end
 
   def create
-    trabalho = Trabalho.create!(sanitized_trabalho(params))
+    trabalho = current_user.trabalhos.create!(sanitized_trabalho(params))
 
     render status: :created, json: { trabalho_id: trabalho.id }
   end
