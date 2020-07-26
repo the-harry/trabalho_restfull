@@ -37,8 +37,17 @@ RSpec.describe 'GET /api/v1/trabalhos', type: :request do
     end
 
     it 'responde com o id do aluno' do
-      expect(JSON.parse(response.body).dig(0, 'aluno_id')).to eq(trabalhos[0].aluno.id)
-      expect(JSON.parse(response.body).dig(1, 'aluno_id')).to eq(trabalhos[1].aluno.id)
+      expect(JSON.parse(response.body).dig(0, 'aluno_id')).to eq(aluno.id)
+      expect(JSON.parse(response.body).dig(1, 'aluno_id')).to eq(aluno.id)
+    end
+
+    it 'retorna apenas o trabalho dele' do
+      create(:trabalho)
+
+      get '/api/v1/trabalhos', headers: { Authorization: token }
+
+      expect(JSON.parse(response.body).count).to eq(2)
+      expect(JSON.parse(response.body).dig(0, 'aluno_id')).to eq(aluno.id)
     end
   end
 

@@ -4,7 +4,7 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
   before_action :find_trabalho, only: %i[show update destroy]
 
   def index
-    trabalhos = Trabalho.all
+    trabalhos = current_user.trabalhos
 
     if trabalhos.exists?
       render status: :ok, json: trabalhos
