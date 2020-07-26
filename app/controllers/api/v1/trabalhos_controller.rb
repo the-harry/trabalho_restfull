@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::TrabalhosController < Api::V1::ApiController
+  before_action :find_trabalho, only: %i[show update]
+
   def index
     trabalhos = Trabalho.all
 
@@ -12,26 +14,18 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
   end
 
   def create
-    trabalho = Trabalho.new(sanitized_trabalho(params))
+    trabalho = Trabalho.create!(sanitized_trabalho(params))
 
-    if trabalho.save
-      render status: :created, json: { trabalho_id: trabalho.id }
-    else
-      render status: :unprocessable_entity, json: { erros: trabalho.errors }
-    end
+    render status: :created, json: { trabalho_id: trabalho.id }
   end
 
   def show
-    trabalho = Trabalho.find_by(id: params['id'])
-
-    if trabalho.present?
-      render status: :ok, json: trabalho
-    else
-      render status: :not_found
-    end
+    render status: :ok, json: @trabalho
   end
 
-  def update; end
+  def update
+    render status: :ok if @trabalho.update!(sanitized_trabalho(params))
+  end
 
   def destroy; end
 
@@ -39,5 +33,11 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
 
   def sanitized_trabalho(params)
     params.require(:trabalho).permit(:title, :url, :aluno_id)
+  end
+
+  def find_trabalho
+    @trabalho = Trabalho.find_by(id: params['id'])
+
+    raise ActiveRecord::RecordNotFound if @trabalho.blank?
   end
 end
