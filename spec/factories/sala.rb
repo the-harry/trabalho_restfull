@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :sala do
-    nome { 'Sala x' }
+    sequence(:nome) { |n| "Sala #{n}" }
   end
 end

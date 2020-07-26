@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :aluno do
-    nome { 'individuo um' }
-    rm { 1234 }
+    sequence(:nome) { |n| "Aluno #{n}" }
+    sequence(:rm) { |n| "123#{n}".to_i }
     sala
   end
 end
