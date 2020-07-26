@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Aluno edita um trabalho', type: :request do
+RSpec.describe 'PUT/PATCH /api/v1/trabalho/:id', type: :request do
   let(:trabalho) { create(:trabalho, title: 'errado', url: 'invalido.com') }
   let(:put_params) { { trabalho: { title: 'NAC' } } }
   let(:patch_params) { { trabalho: { title: 'NAC', url: 'github.com/foo/bar' } } }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Aluno pode ver um trabalho enviado', type: :request do
+RSpec.describe 'GET /api/v1/trabalho/:id', type: :request do
   context 'success 200' do
     let(:trabalho) { create(:trabalho) }
 

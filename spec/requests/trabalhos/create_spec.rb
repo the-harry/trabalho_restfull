@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Aluno cria novo trabalho', type: :request do
+RSpec.describe 'POST /api/v1/trabalho', type: :request do
   let(:aluno) { create(:aluno) }
   let(:parameters) { { trabalho: { title: 'NAC', url: 'localhost', aluno_id: aluno.id } } }
 
