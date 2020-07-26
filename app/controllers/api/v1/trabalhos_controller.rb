@@ -39,5 +39,8 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
 
   def find_trabalho
     @trabalho = Trabalho.find(params['id'])
+    if @trabalho.aluno_id != current_user.id
+      render status: :forbidden, json: { message: 'Nem pense nisso!' }
+    end
   end
 end
