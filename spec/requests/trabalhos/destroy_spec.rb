@@ -15,6 +15,17 @@ RSpec.describe 'DELETE /api/v1/trabalho/:id', type: :request do
     end
   end
 
+  context 'YOU SHALL NOT PASS 403' do
+    let(:trabalho_do_coleguinha) { create(:trabalho) }
+
+    it 'caso queira meter o loko no trabalho do coleguinha' do
+      delete "/api/v1/trabalho/#{trabalho_do_coleguinha.id}", headers: { Authorization: token }
+
+      expect(response).to have_http_status(:forbidden)
+      expect(JSON.parse(response.body)['message']).to eq('Nem pense nisso!')
+    end
+  end
+
   context 'nao encontrado - 404' do
     it 'responde com erro quando nao existe' do
       delete '/api/v1/trabalho/42', headers: { Authorization: token }
