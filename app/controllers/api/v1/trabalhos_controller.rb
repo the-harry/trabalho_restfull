@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::TrabalhosController < Api::V1::ApiController
-  before_action :find_trabalho, only: %i[show update]
+  before_action :find_trabalho, only: %i[show update destroy]
 
   def index
     trabalhos = Trabalho.all
@@ -27,7 +27,9 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
     render status: :ok if @trabalho.update!(sanitized_trabalho(params))
   end
 
-  def destroy; end
+  def destroy
+    render status: :ok if @trabalho.destroy!
+  end
 
   private
 
@@ -36,8 +38,6 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
   end
 
   def find_trabalho
-    @trabalho = Trabalho.find_by(id: params['id'])
-
-    raise ActiveRecord::RecordNotFound if @trabalho.blank?
+    @trabalho = Trabalho.find(params['id'])
   end
 end
