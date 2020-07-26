@@ -46,6 +46,8 @@ Uma boa pratica quando construimos APIs REST eh versionar nossa api, isolando os
 
 `http://foobar:4242/api/v1/path/to/resource/1`
 
+Dessa maneira quando atualizarmos nossa API nao quebramos a compatibilidade com todos os servicos integrados nela, ja que podemos manter a v1 e v2 funcionando em paralelo por um tempo ate que todos migrem para a nova versao e a antiga seja descontinuada.
+
 ### Formatos de dados
 
 Os dois principais formatos usados em APIs sao [JSON](https://www.json.org/json-en.html) e [XML](https://www.w3.org/XML/), o XML eh o mais antigo, ele trabalha com tags e eh mais dificil de trabalhar, o JSON eh o formato mais recente e facil de mexer que tem sido mais utilizado no lugar do XML, sempre de preferencia a usar JSON se possivel.
@@ -56,8 +58,8 @@ O XML trabalha com a ideia de tags que sao definidas pelo usuario:
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
    <element>
-      <amigo_de>Espiriquidiberto</amigo_de>
       <nome>Chafundifórnio</nome>
+      <amigo_de>Espiriquidiberto</amigo_de>
    </element>
 </root>
 ```
@@ -72,6 +74,8 @@ Enquanto o JSON trabalha com objetos de javascript:
   }
 ]
 ```
+
+~~falai, bem mais bonito, ne? ;)~~
 
 ### VERBOS
 
