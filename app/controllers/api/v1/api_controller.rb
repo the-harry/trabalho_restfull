@@ -1,25 +1,30 @@
 # frozen_string_literal: true
 
 class Api::V1::ApiController < ApplicationController
-  rescue_from StandardError do |erro|
-    if erro.is_a?(ActiveRecord::RecordNotFound)
-      response[:status] = 404
-      response[:body] = { error: :not_found, message: 'Registro nao encontrado.' }
+  before_action :authenticate
+
+  rescue_from ActiveRecord::RecordNotFound do
+    render status: 404, json: { error: :not_found, message: 'Registro nao encontrado.' }
+  end
+
+  rescue_from ActiveRecord::RecordInvalid do |error|
+    render status: 422, json: { error: :unprocessable_entity, message: error.record.errors }
+  end
+
+  rescue_from ActionController::ParameterMissing do
+    render status: 422, json: { error: :unprocessable_entity, message: 'Missing params.' }
+  end
+
+  private
+
+  def authenticate
+    authenticate_or_request_with_http_token do |token, _options|
+      nome, rm = token.split(':')
+      Aluno.find_by(nome: nome, rm: rm.to_i)
     end
+  end
 
-    if erro.is_a?(ActiveRecord::RecordInvalid)
-      response[:status] = 422
-      response[:body] = { error: :unprocessable_entity, message: erro.record.errors }
-    end
-
-    if erro.is_a?(ActionController::ParameterMissing)
-      response[:status] = 422
-      response[:body] = { error: :unprocessable_entity, message: 'Missing params.' }
-    end
-
-    response[:status] ||= 500
-    response[:body] ||= { error: :internal_server_error, message: erro.to_s }
-
-    render status: response[:status], json: response[:body]
+  def current_user
+    @current_user ||= authenticate
   end
 end
