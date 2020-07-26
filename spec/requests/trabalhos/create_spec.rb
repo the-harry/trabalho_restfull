@@ -4,11 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'POST /api/v1/trabalho', type: :request do
   let(:aluno) { create(:aluno) }
+  let(:token) { authenticate_with_token("#{aluno.nome}:#{aluno.rm}") }
   let(:parameters) { { trabalho: { title: 'NAC', url: 'localhost', aluno_id: aluno.id } } }
 
   context 'successo - 201' do
     before do
-      post '/api/v1/trabalho', params: parameters
+      post '/api/v1/trabalho', headers: { Authorization: token },
+                               params: parameters
     end
 
     it 'responde com 201' do
@@ -22,19 +24,22 @@ RSpec.describe 'POST /api/v1/trabalho', type: :request do
 
   context 'trabalho nao processavel - 422' do
     it 'raises error if no title is suplied' do
-      post '/api/v1/trabalho', params: { trabalho: { url: 'localhost', aluno_id: aluno.id } }
+      post '/api/v1/trabalho', headers: { Authorization: token },
+                               params: { trabalho: { url: 'localhost', aluno_id: aluno.id } }
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'reclama se nao mandar a url' do
-      post '/api/v1/trabalho', params: { trabalho: { title: 'NAC', aluno_id: aluno.id } }
+      post '/api/v1/trabalho', headers: { Authorization: token },
+                               params: { trabalho: { title: 'NAC', aluno_id: aluno.id } }
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'reclama se nao tiver aluno_id' do
-      post '/api/v1/trabalho', params: { trabalho: { title: 'NAC', url: 'localhost' } }
+      post '/api/v1/trabalho', headers: { Authorization: token },
+                               params: { trabalho: { title: 'NAC', url: 'localhost' } }
 
       expect(response).to have_http_status(:unprocessable_entity)
     end

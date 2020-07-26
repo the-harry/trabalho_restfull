@@ -3,11 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe 'GET /api/v1/trabalho/:id', type: :request do
+  let(:aluno) { create(:aluno) }
+  let(:token) { authenticate_with_token("#{aluno.nome}:#{aluno.rm}") }
+
   context 'success 200' do
-    let(:trabalho) { create(:trabalho) }
+    let(:trabalho) { create(:trabalho, aluno: aluno) }
 
     before do
-      get "/api/v1/trabalho/#{trabalho.id}"
+      get "/api/v1/trabalho/#{trabalho.id}", headers: { Authorization: token }
     end
 
     it 'responde 200 ok' do
@@ -33,7 +36,7 @@ RSpec.describe 'GET /api/v1/trabalho/:id', type: :request do
 
   context 'trabalho nao encontrado 404' do
     it 'caso nao exista' do
-      get '/api/v1/trabalho/42'
+      get '/api/v1/trabalho/42', headers: { Authorization: token }
 
       expect(response).to have_http_status(:not_found)
     end
