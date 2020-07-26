@@ -2,6 +2,7 @@
 
 class Api::V1::TrabalhosController < Api::V1::ApiController
   before_action :find_trabalho, only: %i[show update destroy]
+  before_action :authenticate_resource, only: %i[show update destroy]
 
   def index
     trabalhos = current_user.trabalhos
@@ -39,8 +40,9 @@ class Api::V1::TrabalhosController < Api::V1::ApiController
 
   def find_trabalho
     @trabalho = Trabalho.find(params['id'])
-    if @trabalho.aluno_id != current_user.id
-      render status: :forbidden, json: { message: 'Nem pense nisso!' }
-    end
+  end
+
+  def authenticate_resource
+    render status: :forbidden, json: { message: 'Nem pense nisso!' } if @trabalho.aluno_id != current_user.id
   end
 end
