@@ -19,8 +19,7 @@ class Api::V1::ApiController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_token do |token, _options|
-      nome, rm = token.split(':')
-      Aluno.find_by(nome: nome, rm: rm.to_i)
+      Aluno.find_by(token: token)
     end
   end
 

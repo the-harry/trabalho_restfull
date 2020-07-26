@@ -18,6 +18,8 @@ module TrabalhoRestful
   class Application < Rails::Application
     config.load_defaults 6.0
 
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     config.api_only = true
   end
 end
