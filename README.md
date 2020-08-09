@@ -355,14 +355,36 @@ Quando uma API implementar rate limit voce provavelmente rebera um header inform
        http://localhost/api/v1/trabalho/2 -v
   ```
 
-  Agora podemos conferir nosso recurso e validar aqu
+  Agora podemos conferir nosso recurso e validar que as alteracoes feitas foram persistidas de fato:
 
-- DESTROY
+  ```bash
+  curl -H "Content-Type: application/json" \
+       -H "Authorization: Token zezinho:666" \
+       http://localhost/api/v1/trabalho/2 -v
+  ```
+
+  `{"id":2,"title":"foobar","url":"github.com/foo/bar","aluno_id":1,"created_at":"2020-08-09T14:02:16.393Z","updated_at":"2020-08-09T17:10:24.033Z"}`
+
+- DELETE
+
+  Finalmente, vamos destruir esse segundo registro usando o verbo DELETE:
+
+  ```bash
+  curl -X DELETE \
+       -H "Content-Type: application/json" \
+       -H "Authorization: Token zezinho:666" \
+       http://localhost/api/v1/trabalho/2 -v
+  ```
+
+
+### Entrega da atividade
+
+* [ ] Atualize o primeiro recurso com o titulo do trabalho (ex: NAC X) e a url do github onde seu projeto se encontra.
+
 
 ### Referências e recursos úteis
 
 Temos algumas RFCs para especificacoes do protocolo HTTP, porem a 7231 define a semantica do protocolo. Vale a pena dar uma olhada caso queira mais detalhes.
-!!! image
 
 [RFC 2616 - original](https://tools.ietf.org/html/rfc2616)
 
