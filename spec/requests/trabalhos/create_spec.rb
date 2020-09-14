@@ -9,6 +9,8 @@ RSpec.describe 'POST /api/v1/trabalho', type: :request do
 
   context 'successo - 201' do
     before do
+      DatabaseCleaner.clean
+
       post '/api/v1/trabalho', headers: { Authorization: token },
                                params: parameters
     end

@@ -8,6 +8,11 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
+require 'database_cleaner/active_record'
+
+DatabaseCleaner.allow_remote_database_url = true
+DatabaseCleaner.strategy = :truncation
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
