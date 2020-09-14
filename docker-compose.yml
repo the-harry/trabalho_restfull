@@ -11,3 +11,8 @@ services:
       - "80:3000"
     env_file:
      - .env
+
+  postgres:
+      image: postgres:12-alpine
+      environment:
+        - POSTGRES_HOST_AUTH_METHOD=trust

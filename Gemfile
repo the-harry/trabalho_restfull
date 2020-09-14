@@ -6,11 +6,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'pg'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-gem 'sqlite3', '~> 1.4'
 
 group :test do
+  gem 'database_cleaner-active_record'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
 end
